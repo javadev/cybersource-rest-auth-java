@@ -1,0 +1,260 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>7</version>
+    </parent>
+    <groupId>com.github.javadev</groupId>
+	<artifactId>AuthenticationSdk</artifactId>
+	<version>0.0.5</version>
+	<name>CyberSource Authentication SDK</name>
+     <licenses>
+        <license>
+            <name>SDK License Agreement</name>
+            <url>https://github.com/javadev/cybersource-rest-auth-java/blob/master/LICENSE.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <scm>
+        <connection>scm:git:https://github.com/javadev/cybersource-rest-auth-java.git</connection>
+        <developerConnection>scm:git:https://github.com/javadev/cybersource-rest-auth-java.git</developerConnection>
+        <url>https://github.com/javadev/cybersource-rest-auth-java.git</url>
+    </scm>
+    <developers>
+        <developer>
+            <id>CyberSource</id>
+            <name>CyberSource Developer</name>
+            <email>developer@cybersource.com</email>
+        </developer>
+    </developers>
+	<dependencies>
+
+
+		<dependency>
+			<groupId>org.bouncycastle</groupId>
+			<artifactId>bcprov-jdk16</artifactId>
+			<version>1.45</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>com.nimbusds</groupId>
+			<artifactId>nimbus-jose-jwt</artifactId>
+			<version>4.22</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-io</groupId>
+                    <artifactId>commons-io</artifactId>
+                </exclusion>
+            </exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>net.minidev</groupId>
+			<artifactId>asm</artifactId>
+			<version>1.0.2</version>
+		</dependency>
+
+
+
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>2.3</version>
+			<type>pom</type>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>2.3</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>2.3</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-1.2-api</artifactId>
+			<version>2.3</version>
+		</dependency>
+
+
+
+		<dependency>
+			<groupId>net.minidev</groupId>
+			<artifactId>json-smart</artifactId>
+			<version>1.0.9</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.6.4</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.2.2</version>
+		</dependency>
+
+
+
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.6</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.8.1</version>
+			<scope>test</scope>
+		</dependency>
+
+	</dependencies>
+
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.7.0</version>
+					<configuration>
+						<source>1.6</source>
+						<target>1.6</target>
+					</configuration>
+				</plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>1.4.1</version>
+                <!-- find the latest version at http://maven.apache.org/plugins/maven-enforcer-plugin/ -->
+                <executions>
+                    <execution>
+                        <id>enforce-bytecode-version</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <enforceBytecodeVersion>
+                                    <maxJdkVersion>1.6</maxJdkVersion>
+                                    <excludes>
+                                        <exclude>org.mindrot:jbcrypt</exclude>
+                                    </excludes>
+                                </enforceBytecodeVersion>
+                            </rules>
+                            <fail>true</fail>
+                        </configuration>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>extra-enforcer-rules</artifactId>
+                        <version>1.0-beta-5</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>2.16</version>
+					<configuration>
+						<parallel>classes</parallel>
+						<threadCount>10</threadCount>
+						<skipTests>true</skipTests>
+					</configuration>
+				</plugin>
+
+				<plugin>
+					<groupId>org.sonarsource.scanner.maven</groupId>
+					<artifactId>sonar-maven-plugin</artifactId>
+					<version>3.4.0.905</version>
+				</plugin>
+
+			</plugins>
+		</pluginManagement>
+	</build>
+
+	<properties>
+		<sonar.sources>src/main</sonar.sources>
+		<sonar.tests>src/test</sonar.tests>
+		<!-- Below property indicates the pattern of the test suite -->
+		<runSuite>**/*Suite.class</runSuite>
+		<!-- Sonar-JaCoCo properties -->
+		<sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+		<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+		<sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>
+		<sonar.language>java</sonar.language>
+		<sonar.exclusions>
+			**/GlobalLabelParameters.java,**/MerchantConfigConstants.java,**/Utility.java</sonar.exclusions>
+	</properties>
+
+	<profiles>
+		<profile>
+			<id>sonar-coverage</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<groupId>org.jacoco</groupId>
+							<artifactId>jacoco-maven-plugin</artifactId>
+							<version>0.7.8</version>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+				<plugins>
+					<plugin>
+						<groupId>org.jacoco</groupId>
+						<artifactId>jacoco-maven-plugin</artifactId>
+						<configuration>
+							<append>true</append>
+						</configuration>
+						<executions>
+							<execution>
+								<id>agent-for-ut</id>
+								<goals>
+									<goal>prepare-agent</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>agent-for-it</id>
+								<goals>
+									<goal>prepare-agent-integration</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>jacoco-site</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>report</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
+</project>
