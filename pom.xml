@@ -154,7 +154,7 @@
                         <configuration>
                             <rules>
                                 <enforceBytecodeVersion>
-                                    <maxJdkVersion>1.6</maxJdkVersion>
+                                    <maxJdkVersion>1.7</maxJdkVersion>
                                     <excludes>
                                         <exclude>org.mindrot:jbcrypt</exclude>
                                     </excludes>
